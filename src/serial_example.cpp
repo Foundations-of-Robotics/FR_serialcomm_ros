@@ -54,14 +54,17 @@ std::string detectPort()
 void ReadAndPublishData(ros::Publisher pub,  serial::Serial &_port){
     //Next we wait for the return message before publishing  
             uint8_t check_buffer[2];
-            
+            int counter=0;
             while(_port.available() == 0){
                 std::cout << "..." << std::endl;
                 usleep(100000);
+                counter++;
+                if(counter>100){
+                    return
+                }
             }
             std::cout << "." << std::endl;
-            std::string test_string = "Definitly Recieving Data";
-            std::string result = _port.read(test_string.length()+1);
+            std::string result = _port.read(300);
             std::cout <<"result string is 100% "<< result << std::endl;
             return;
 
@@ -137,7 +140,7 @@ int main(int argc, char **argv)
     int data_as_Int;
     while (ros::ok())
     {
-        std::cout  << "Please enter a number between -10000-10000 to create a message, the terms 'send' to send the payload or 'exit' to quit the program: ";
+        std::cout  << "Please enter a number between -10000-10000 to create a message, the terms 'send' to send the payload or 'quit' to exit the program: ";
         std::cin >> input;
         std::cout<<input  << std::endl;
         
@@ -157,6 +160,7 @@ int main(int argc, char **argv)
             uint8_t commandArray[payloadArray.size()];
             std::copy(payloadArray.begin(), payloadArray.end(), commandArray);
             _serial.write(commandArray, payloadArray.size()); 
+            payloadArray.clear();
 
             ReadAndPublishData(system_publisher,_serial);
 
