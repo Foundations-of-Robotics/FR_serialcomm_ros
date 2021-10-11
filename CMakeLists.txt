@@ -105,7 +105,7 @@ add_message_files(DIRECTORY msg FILES serial_message.msg)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include msg
+  INCLUDE_DIRS msg
   LIBRARIES fr_serialcomm_ros
   CATKIN_DEPENDS roscpp rospy serial std_msgs
 #  DEPENDS system_lib
