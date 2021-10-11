@@ -60,7 +60,7 @@ void ReadAndPublishData(ros::Publisher pub,  serial::Serial &_port){
                 usleep(100000);
                 counter++;
                 if(counter>100){
-                    return
+                    return;
                 }
             }
             std::cout << "." << std::endl;
