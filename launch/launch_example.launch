@@ -1,0 +1,3 @@
+<launch>
+<node name="exampleNode" pkg="fr_serialcomm_ros" type="serial_com" output="screen"/>
+</launch>
